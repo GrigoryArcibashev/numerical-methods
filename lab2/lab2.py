@@ -3,17 +3,17 @@ from math import e, pi, sin, cos, sqrt, log
 
 def f(x: float) -> float:
     """Исходная ф-ия"""
-    return 1 + sin(x) - 1.2 / (e**x)
+    return 1 + sin(x) - 1.2 / (e ** x)
 
 
 def fp(x: float) -> float:
     """Первая производная ф-ии f"""
-    return cos(x) + 1.2 / (e**x)
+    return cos(x) + 1.2 / (e ** x)
 
 
 def fpp(x: float) -> float:
     """Вторая производная ф-ии f"""
-    return -sin(x) - 1.2 / (e**x)
+    return -sin(x) - 1.2 / (e ** x)
 
 
 def fi(x: float) -> float:
@@ -55,7 +55,7 @@ def dichotomy(a: float, b: float, eps: float) -> tuple[float, int]:
     n = 1
     while True:
         root = (a + b) / 2
-        if (b - a) / pow(2, n) <= eps :
+        if (b - a) / pow(2, n) <= eps:
             return root, n
         n += 1
         if f(a) * f(root) < 0:
@@ -65,7 +65,7 @@ def dichotomy(a: float, b: float, eps: float) -> tuple[float, int]:
 
 
 def unwalking_chords(x0: float, x1: float, eps: float) \
-    -> tuple[float, int]:
+        -> tuple[float, int]:
     """Метод неподвижных хорд"""
     n = 1
     xn = x1
@@ -79,7 +79,7 @@ def unwalking_chords(x0: float, x1: float, eps: float) \
 
 
 def walking_chords(x0: float, x1: float, eps: float) \
-    -> tuple[float, int]:
+        -> tuple[float, int]:
     """Метод поподвижных хорд"""
     n = 1
     xn_prev = x0
@@ -95,7 +95,7 @@ def walking_chords(x0: float, x1: float, eps: float) \
 
 
 def newton(x0: float, x1: float, eps: float) \
-    -> tuple[float, int]:
+        -> tuple[float, int]:
     """Метод Ньютона"""
     n = 1
     xn = x0
@@ -103,19 +103,19 @@ def newton(x0: float, x1: float, eps: float) \
     M = get_M(x0, x1, eps)
     while True:
         root = xn - f(xn) / fp(xn)
-        if M * pow(root - xn, 2) / (2*m) <= eps:
+        if M * pow(root - xn, 2) / (2 * m) <= eps:
             return root, n
         xn = root
         n += 1
 
 
-def calc_delta_xn(xn: float, d:int, M: float) -> float:
+def calc_delta_xn(xn: float, d: int, M: float) -> float:
     """Возвращает △xn"""
-    return (-fp(xn) + d * sqrt(pow(fp(xn), 2) + 2 * M * f(xn))) / (-M) 
+    return (-fp(xn) + d * sqrt(pow(fp(xn), 2) + 2 * M * f(xn))) / (-M)
 
 
 def parabols(x0: float, x1: float, eps: float) \
-    -> tuple[float, int]:
+        -> tuple[float, int]:
     """Метод парабол"""
     n = 1
     xn = x0
@@ -132,7 +132,7 @@ def parabols(x0: float, x1: float, eps: float) \
 
 
 def simple_iteration(x0: float, x1: float, eps: float) \
-    -> tuple[float, int]:
+        -> tuple[float, int]:
     """Метод простой итерации"""
     n = 1
     xn = x1
@@ -149,7 +149,7 @@ def main() -> None:
     a = 0.05
     b = pi / 2
     eps = 0.000005
-    
+
     root, n = dichotomy(a, b, eps)
     print(f'ДИХОТОМИЯ\nx = {root} \nn = {n}\n')
     root, n = unwalking_chords(a, b, eps)
@@ -159,7 +159,7 @@ def main() -> None:
     root, n = newton(a, b, eps)
     print(f'НЬЮТОН\nx = {root} \nn = {n}\n')
     root, n = parabols(a, b, eps)
-    print(f'ПАРАБОЛЫ\nx = {root} \nn = {n}\n')   
+    print(f'ПАРАБОЛЫ\nx = {root} \nn = {n}\n')
     root, n = simple_iteration(a, b, eps)
     print(f'ИТЕРАЦИЯ\nx = {root} \nn = {n}\n')
 
@@ -168,4 +168,5 @@ def main() -> None:
     print(f'q = {get_q(a, b, eps)}')
 
 
-main()
+if __name__ == '__main__':
+    main()
