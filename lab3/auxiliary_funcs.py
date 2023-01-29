@@ -9,7 +9,11 @@ def get_extended_A() -> list[list[float]]:
         ]
 
 
-def cut(n: float, k: int) -> float:
+def get_exact_solution() -> list[float]:
+    return [1, 2, 2.41]
+
+
+def cut(num: float, k: int) -> float:
     """Отбрасывает все цифры после запятой, начиная с (k+1)-ой"""
     s = pow(10, k)
-    return floor(n * s) / s
+    return floor(num * s) / s

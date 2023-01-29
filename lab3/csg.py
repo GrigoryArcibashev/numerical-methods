@@ -27,7 +27,7 @@ def calc_c_ij(
     for t in range(i):
         res = cut(res - cut(B[i][t] * C[t][j], k), k)
     if B[i][i] == 0:
-        return cut(res / 2.27622519233e-05, k)
+        return cut(res / pow(10, -k), k)
     return cut(res / B[i][i], k)
 
 
