@@ -9,6 +9,7 @@ def print_csg() -> None:
         X = compact_scheme_gauss(get_extended_A(), k)
         print(f'При k = {k}:')
         print(f'\tx1 = {X[0]}\n\tx2 = {X[1]}\n\tx3 = {X[2]}')
+    print('\n')
 
 
 def print_mg() -> None:
@@ -16,7 +17,8 @@ def print_mg() -> None:
     for k in (2, 4, 6):
         X = method_gauss(get_extended_A(), k)
         print(f'При k = {k}:')
-        print(f'\tx1 = {X[0]}\n\tx2 = {X[1]}\n\tx3 = {X[2]}\n')
+        print(f'\tx1 = {X[0]}\n\tx2 = {X[1]}\n\tx3 = {X[2]}')
+    print('\n')
 
 
 def main() -> None:

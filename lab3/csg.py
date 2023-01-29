@@ -1,4 +1,4 @@
-from auxiliary_funcs import cut, get_extended_A
+from auxiliary_funcs import cut
 
 
 def calc_b_ij(
@@ -45,10 +45,11 @@ def calc_x(
     return cut(res, k)
 
 
-def compact_scheme_gauss(extended_A: list[list[float]], k: int) -> list[float]:
+def compact_scheme_gauss(ext_A: list[list[float]], k: int) -> list[float]:
     """Компактная схема Гаусса"""
+
     # Размерность матрицы A
-    n = len(extended_A)
+    n = len(ext_A)
 
     # Вычисление матриц B и C
     B = [[0.0] * n for _ in range(n)]
@@ -56,14 +57,14 @@ def compact_scheme_gauss(extended_A: list[list[float]], k: int) -> list[float]:
     for i in range(n):
         for j in range(n):
             if i >= j:
-                B[i][j] = calc_b_ij(extended_A, B, C, (i, j), k)
+                B[i][j] = calc_b_ij(ext_A, B, C, (i, j), k)
             else:
-                C[i][j] = calc_c_ij(extended_A, B, C, (i, j), k)
+                C[i][j] = calc_c_ij(ext_A, B, C, (i, j), k)
 
     # Вычисление матрицы-столбца Y
     raw_Y = [[0.0] * (n + 1) for _ in range(n)]
     for i in range(n):
-        raw_Y[i][n] = calc_c_ij(extended_A, B, raw_Y, (i, n), k)
+        raw_Y[i][n] = calc_c_ij(ext_A, B, raw_Y, (i, n), k)
     Y = list(map(lambda y: y[n], raw_Y))
 
     # Вычисление матрицы-столбца X
