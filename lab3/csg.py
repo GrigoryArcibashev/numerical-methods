@@ -1,10 +1,4 @@
-from math import floor
-
-
-def cut(n: float, k: int) -> float:
-    """Отбрасывает все цифры после запятой, начиная с (k+1)-ой"""
-    s = pow(10, k)
-    return floor(n * s) / s
+from auxiliary_funcs import cut, get_extended_A
 
 
 def calc_b_ij(
@@ -77,20 +71,3 @@ def compact_scheme_gauss(extended_A: list[list[float]], k: int) -> list[float]:
     for i in range(n - 1, -1, -1):
         X[i] = calc_x(Y, C, X, i, n, k)
     return X
-
-
-def get_extended_A() -> list[list[float]]:
-    return [
-        [1.2345, 3.1415, 1, 9.9275],
-        [2.3456, 5.9690, 0, 14.2836],
-        [3.4567, 2.1828, 2.1, 12.8833]
-        ]
-
-
-def main() -> None:
-    X = compact_scheme_gauss(get_extended_A(), 2)
-    print(*X)
-
-
-if __name__ == '__main__':
-    main()
