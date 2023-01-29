@@ -1,53 +1,7 @@
-from math import e, pi, sin, cos, sqrt, log
+from math import pi, sqrt
 
-
-def f(x: float) -> float:
-    """Исходная ф-ия"""
-    return 1 + sin(x) - 1.2 / (e ** x)
-
-
-def fp(x: float) -> float:
-    """Первая производная ф-ии f"""
-    return cos(x) + 1.2 / (e ** x)
-
-
-def fpp(x: float) -> float:
-    """Вторая производная ф-ии f"""
-    return -sin(x) - 1.2 / (e ** x)
-
-
-def fi(x: float) -> float:
-    """Ф-ия фи для метода простой итерации"""
-    return log(1.2 / (1 + sin(x)))
-
-
-def fip(x: float) -> float:
-    """Первая производная ф-ии fi"""
-    return -cos(x) / (1 + sin(x))
-
-
-def get_m(a: float, b: float, eps: float) -> float:
-    """Возвращает число m = min(|f`(x)|)"""
-    rng = [a + eps * i for i in range(int((b - a) / eps))]
-    if rng[-1] < b:
-        rng.append(b)
-    return min(filter(lambda s: s > 0, map(abs, map(fp, rng))))
-
-
-def get_M(a: float, b: float, eps: float) -> float:
-    """Возвращает число M = max(|f``(x)|)"""
-    rng = [a + eps * i for i in range(int((b - a) / eps))]
-    if rng[-1] < b:
-        rng.append(b)
-    return max(map(abs, map(fpp, rng)))
-
-
-def get_q(a: float, b: float, eps: float) -> float:
-    """Возвращает число q = max(fi`(x))"""
-    rng = [a + eps * i for i in range(int((b - a) / eps))]
-    if rng[-1] < b:
-        rng.append(b)
-    return max(map(abs, map(fip, rng)))
+from funcs import f, fi, fp
+from qmM import get_M, get_m, get_q
 
 
 def dichotomy(a: float, b: float, eps: float) -> tuple[float, int]:
@@ -114,7 +68,7 @@ def calc_delta_xn(xn: float, d: int, M: float) -> float:
     return (-fp(xn) + d * sqrt(pow(fp(xn), 2) + 2 * M * f(xn))) / (-M)
 
 
-def parabols(x0: float, x1: float, eps: float) \
+def parabolas(x0: float, x1: float, eps: float) \
         -> tuple[float, int]:
     """Метод парабол"""
     n = 1
@@ -158,7 +112,7 @@ def main() -> None:
     print(f'ХОРДЫ(П)\nx = {root} \nn = {n}\n')
     root, n = newton(a, b, eps)
     print(f'НЬЮТОН\nx = {root} \nn = {n}\n')
-    root, n = parabols(a, b, eps)
+    root, n = parabolas(a, b, eps)
     print(f'ПАРАБОЛЫ\nx = {root} \nn = {n}\n')
     root, n = simple_iteration(a, b, eps)
     print(f'ИТЕРАЦИЯ\nx = {root} \nn = {n}\n')
