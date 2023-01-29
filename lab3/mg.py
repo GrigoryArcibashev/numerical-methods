@@ -8,26 +8,28 @@ def method_gauss(ext_A: list[list[float]], k: int) -> list[float]:
     n = len(ext_A)
 
     for i in range(n):
-        # Ищем максимальный элемент в i-ом столбце
-        t = max(
-                [(j, abs(ext_A[j][i])) for j in range(i, n)],
+        # Ищем главный элемент в i-ом столбце
+        line_num, main_it = max(
+                [(line, abs(ext_A[line][i])) for line in range(i, n)],
                 key=lambda z: z[-1]
                 )
 
-        # Переставляем i-ую и t[0]-ую строки местами
-        tmp = ext_A[t[0]]
-        ext_A[t[0]] = ext_A[i]
+        # Переставляем i-ую и line_num-ую строки местами
+        tmp = ext_A[line_num]
+        ext_A[line_num] = ext_A[i]
         ext_A[i] = tmp
 
-        # ???
-        ext_A[i] = list(map(lambda z: cut(z / t[1], k), ext_A[i]))
+        # Нормировка
+        ext_A[i] = list(map(lambda z: cut(z / main_it, k), ext_A[i]))
+        # Исключение элементов i-го столбца
         for j in range(i + 1, n):
-            a_next = ext_A[j][i]
-            for x in range(n + 1):
-                ext_A[j][x] = cut(
-                        ext_A[j][x] - cut(ext_A[i][x] * a_next, k),
+            a_ji = ext_A[j][i]
+            for u in range(n + 1):
+                ext_A[j][u] = cut(
+                        ext_A[j][u] - cut(ext_A[i][u] * a_ji, k),
                         k)
 
+    # Вычисление матрицы-столбца X
     X = [0.0 for _ in range(n)]
     for i in range(n - 1, -1, -1):
         X[i] = ext_A[i][n]
