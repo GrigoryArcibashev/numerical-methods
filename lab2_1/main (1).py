@@ -22,7 +22,7 @@ def lab_1task():
     print()
     print(Simpson(h1,function))
     print(Simpson(h2,function))
-    print((16 / 15) * (Simpson(h2,function) - Simpson(h1,function)))
+    print((1 / 15) * (Simpson(h2,function) - Simpson(h1,function)))
     print()
     print(Gauss(xArray,function))
 
@@ -34,13 +34,11 @@ def trapeze(h,functionL):
 
 def rectangles(h,functionL):
     partitionMore = [x / 100000 for x in range(0, 100001, int(h * 100000))]
-    print(partitionMore)
     return sum([functionL((x + y) / 2) * h for x, y in zip(partitionMore[:-1], partitionMore[1:])])
 
 
 def Simpson(h,functionL):
     partitionMore = [x / 100000 for x in range(0, 100001, int(h * 100000))]
-
     return sum([(h / 6) * (functionL(x) + 4 * functionL(x + h / 2) + functionL(y)) for x, y in
                 zip(partitionMore[:-1], partitionMore[1:])])
 
@@ -51,12 +49,11 @@ def Gauss(xAr,functionL):
 
 
 def function(x):
-    return math.sqrt(7 + x + x * x)
+    return math.sqrt(math.log10(x + 1) + 1)
 
 
 def secondFunction(x):
-    return math.sqrt(1 - x * x)
-
+    return 1 / (x * x + 1)
 
 # Press the green button in the gutter to run the script.
 def lab_2task():
@@ -68,15 +65,16 @@ def lab_2task():
         deltaSimpson.append(abs(exact-Simpson(1 / i, secondFunction)))
         deltaTrapeze.append(abs(exact-trapeze(1 / i, secondFunction)))
         deltaRectangle.append(abs(exact-rectangles(1 / i, secondFunction)))
-    print(deltaRectangle)
-    plt.plot([i for i in range(1,100)], deltaRectangle, label="Rectangle")
-    plt.plot([i for i in range(1, 100)], deltaTrapeze, label="Trapeze")
-    plt.plot([i for i in range(1, 100)], deltaSimpson, label="Simpson")
+    plt.plot([i for i in range(1,100)], deltaRectangle, label="Прямоугольники")
+    plt.plot([i for i in range(1, 100)], deltaTrapeze, label="Трапеция")
+    plt.plot([i for i in range(1, 100)], deltaSimpson, label="Симпсон")
+    plt.xlabel('n')
+    plt.ylabel('δ(n)')
     plt.legend()
     plt.show()
 
 
 if __name__ == '__main__':
-    #lab_1task()
+    # lab_1task()
     lab_2task()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
