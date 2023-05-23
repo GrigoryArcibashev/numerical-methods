@@ -1,7 +1,7 @@
 import numpy as np
 
 from config import a, counts, p, q
-from progon_maker import tridiagonal_solve
+from progon_method.progon_maker import tridiagonal_solve
 from progon_method.progon import Progon
 
 left_progon = {

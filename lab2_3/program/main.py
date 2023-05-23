@@ -2,8 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from config import a, colors, counts
-from lab3_progon import progon
-from lab3_shoot import shoot, shoot_methods
+from progon_method.main_progon import progon
+from shoot_method.main_shoot import shoot, shoot_methods
 
 if __name__ == '__main__':
     res_shoot = shoot()
